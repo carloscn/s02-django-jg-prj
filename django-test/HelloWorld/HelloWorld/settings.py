@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+CSP_DEFAULT_SRC = ["*"]
 
 # Application definition
 
