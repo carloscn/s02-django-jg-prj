@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>三轴数据监测平台</title>
+
+</head>
+<body>
+	<form action="/add/" method="get">
+         <p>设备id: <span id='id'></span></p>
+         <p>时间: <span id='time'></span></p>
+        轴1数据： <input type="text" id="a" name="a" value="{{hello1}}"> <br>
+        轴2数据： <input type="text" id="b" name="b" value="{{hello2}}"> <br>
+        轴3数据： <input type="text" id="c" name="c" value="{{hello3}}"> <br>
+         <p>GPS: <span id='gps'></span></p>
+         <p>管理员状态: <span id='at'></span></p>
+         <p>报警器状态: <span id='vt'></span></p>
+         <p>计数器： <input type="text" id="counter" name="c" value="{{hello3}}"> <br>
+         <p>数据库状态： <input type="text" id="state" name="c" value="{{hello3}}"> <br>
+        <button type="button" id='sum'> 刷新数据 </button>
+        <button type="button" id='res'> 请求数据 </button>
+	</form>
+<script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+      $("#res").click(function(){
+        var k = parseInt($('#counter').val());
+        $.get('/res/',{'s':k}, function(ret){
+            if ( ret == 0 ) {
+                $('#state').val("数据库无最新数据...")
+                return;
+            }else {
+                var data = ret.split(",");
+                $('#id').html(data[0])
+                $('#time').html(data[1])
+                $("#a").val(data[2])
+                $('#b').val(data[3])
+                $('#c').val(data[4])
+                $('#vt').html(data[5])
+                $('#gps').html(data[6])
+                $('#at').html(data[7])
+                $('#counter').val(k + 1)
+                $('#state').val("数据库读取中...")
+            }
+        })
+      });
+    });
+</script>
+
+<script type="text/javascript">
+	var counter = 0;
+	var int=self.setInterval("clock()",1000);
+	$('#counter').val(1)
+	function clock()
+	{
+	    counter = parseInt($('#counter').val());
+        $.get('/res/',{'s':counter}, function(ret){
+            if (ret == 0) {
+                $('#state').val("数据库无最新数据...")
+                return;
+            }else {
+                var data = ret.split(",");
+                $('#id').html(data[0])
+                $('#time').html(data[1])
+                $("#a").val(data[2])
+                $('#b').val(data[3])
+                $('#c').val(data[4])
+                $('#vt').html(data[5])
+                $('#gps').html(data[6])
+                $('#at').html(data[7])
+                $('#counter').val( counter + 1  )
+                $('#state').val("数据库读取中...")
+            }
+        })
+	}
+</script>
+</body>
+</html>
