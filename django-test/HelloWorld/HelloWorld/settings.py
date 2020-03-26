@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'HelloWorld.middlewares.MyTest',
+    'csp_nonce.middleware.CSPNonceMiddleware',
 ]
 
 ROOT_URLCONF = 'HelloWorld.urls'

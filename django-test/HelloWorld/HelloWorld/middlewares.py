@@ -1,4 +1,5 @@
 from django.utils.deprecation import MiddlewareMixin
+import csp_nonce
 
 class MyTest(MiddlewareMixin):
     def process_response(self, request, response):
