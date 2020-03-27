@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d887c227-22ef-4be5-a66c-436f1f2b5774" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/HelloWorld/middlewares.py" beforeDir="false" afterPath="$PROJECT_DIR$/HelloWorld/HelloWorld/middlewares.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/HelloWorld/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/HelloWorld/HelloWorld/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
