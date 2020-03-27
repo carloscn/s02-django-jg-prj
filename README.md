@@ -18,6 +18,10 @@ tags:
 
 ### 下位机
 
+![image-20200327080338402](README/20200327115418.png)
+
+如图所示，下位机流程图
+
 下位机是以STM32为核心的传感器信息采集装置，主要实现对MPU6050三轴数据的采集与传输、振动检测、身份密码校验等功能，利用NB-IoT模块以4G网络为载体进行信息交互传递。NB-IoT为移动运营商提供的硬件平台并配套相应地运营商服务器，NB-IoT模块非传统的4G网络模块的点对点通信模式，而是会将数据直接发送到运营商服务器上，由运营商服务器负责将数据转发到本项目的服务器上。
 
 ### 服务器
@@ -44,7 +48,7 @@ l **Json解析器：**生成和保存json文件。
 
 
 
-## 服务器配置MySQL安装
+## 服务器配置
 
 ### 下载MqSQL
 
@@ -148,6 +152,8 @@ ALTER TABLE `s02table` DROP PRIMARY KEY ,ADD PRIMARY KEY ( `number` );
 
 alter table s02table modify number int auto_increment;
 
+truncate table s02table;
+
 ## COAP开发
 
 安装coapython：
@@ -190,109 +196,115 @@ alter table s02table modify number int auto_increment;
 
 `db.resources.createIndex( { "ep": 1, "d": 1 }, { unique: true } )`
 
-
-
 ### 请求方法
 
   - 0.01 GET：获取资源
+
   - 0.02 POST：创建资源
+
   - 0.03 PUT：更新资源
+
 - 0.04 DELETE：删除资源
   
-  
-  
-  ## 安装OpenSSL
-  
+### 安装OpenSSL
+
   下载： http://slproweb.com/download/Win64OpenSSL_Light-1_1_1e.msi
-  
+
   配置环境路径
-  
+
   需要vc2015 res x64
+
+1. 打开windows命令行窗口，输入where openssl，查询是否安装openssl。
+
+`where openssl `
+
+![点击放大](https://support.huaweicloud.com/devg-IoT/figure/zh-cn_image_0229054450.gif)
+
+​     
+
+2. 创建测试CA证书。
+1. 创建私钥。
+
+`openssl genrsa -out ca-key.pem 1024 `
+
+2. 创建证书请求。
+
+`openssl req -new -out ca-req.csr -key ca-key.pem `
+
+3. 自签署证书。
+
+`openssl x509 -req -in ca-req.csr -out ca-cert.pem -signkey ca-key.pem -days 3650 `
+![点击放大](https://support.huaweicloud.com/devg-IoT/figure/zh-cn_image_0229054091.gif)
+3. 生成server证书。
+
+1. 创建私钥。
+
+`openssl genrsa -out server.key 1024 `
+
+2. 创建证书请求。
+`openssl req -new -out server-req.csr -key server.key `
   
-  1. 打开windows命令行窗口，输入where openssl，查询是否安装openssl。
-  
-     `where openssl `
-  
-     ![点击放大](https://support.huaweicloud.com/devg-IoT/figure/zh-cn_image_0229054450.gif)
-  
-     
-  
-  2. 创建测试CA证书。
-  
-     
-  
-     1. 创建私钥。
-  
-        `openssl genrsa -out ca-key.pem 1024 `
-  
-     2. 创建证书请求。
-  
-        `openssl req -new -out ca-req.csr -key ca-key.pem `
-  
-     3. 自签署证书。
-  
-        `openssl x509 -req -in ca-req.csr -out ca-cert.pem -signkey ca-key.pem -days 3650 `
-  
-     ![点击放大](https://support.huaweicloud.com/devg-IoT/figure/zh-cn_image_0229054091.gif)
-  
-     
-  
-  3. 生成server证书。
-  
-     
-  
-     1. 创建私钥。
-  
-        `openssl genrsa -out server.key 1024 `
-  
-     2. 创建证书请求。
-  
-        `openssl req -new -out server-req.csr -key server.key `
-  
-     3. 自签署证书。
-  
-        `openssl x509 -req -in server-req.csr -out server.cert -signkey server.key -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial -days 3650 `
-  
-     ![点击放大](https://support.huaweicloud.com/devg-IoT/figure/zh-cn_image_0229054353.gif)
-  
-     
-  
-  4. 生成client证书。
-  
-     
-  
-     1. 创建私钥。
-  
-        `openssl genrsa -out client.key 1024 `
-  
-     2. 创建证书请求。
-  
-        `openssl req -new -out client-req.csr -key client.key `
-  
-     3. 自签署证书。
-  
-        `openssl x509 -req -in client-req.csr -out client.cert -signkey client.key -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial -days 3650 `
-  
-     ![点击放大](https://support.huaweicloud.com/devg-IoT/figure/zh-cn_image_0229054093.gif)
-  
-     
-  
-  5. 在Demo工程中，已经配置好生成的server证书。
-  
-  
-  
-  python -m pip install flask -i http://pypi.douban.com/simple --trusted-host=pypi.douban.com
-  
-  python -m pip install requests -i http://pypi.douban.com/simple --trusted-host=pypi.douban.com
-  
-  
-  
-  
-  
-  
+3. 自签署证书。
+`openssl x509 -req -in server-req.csr -out server.cert -signkey server.key -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial -days 3650 `
+![点击放大](https://support.huaweicloud.com/devg-IoT/figure/zh-cn_image_0229054353.gif)
+
+4. 生成client证书。
+
+
+1. 创建私钥。
+`openssl genrsa -out client.key 1024 `
+2. 创建证书请求。
+`openssl req -new -out client-req.csr -key client.key `
+3. 自签署证书。
+`openssl x509 -req -in client-req.csr -out client.cert -signkey client.key -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial -days 3650 `
+![点击放大](https://support.huaweicloud.com/devg-IoT/figure/zh-cn_image_0229054093.gif)
+5. 在Demo工程中，已经配置好生成的server证书。
+python -m pip install flask -i http://pypi.douban.com/simple --trusted-host=pypi.douban.com
+
+python -m pip install requests -i http://pypi.douban.com/simple --trusted-host=pypi.douban.com
+
+## 使用方法关键记录
+
+请参考教学视频，以下为关键步骤的记录。
+
+step1： 在服务器端启动django服务:  新建一个cmd终端
+
+`cd /d c:\workspace\s02-django-jg-prj\django-test\HelloWorld`
+
+`python manage.py runserver 0.0.0.0:8080 `
+
+![image-20200327104519032](README/image-20200327104519032.png)
+
+step2:   服务器端系统启动socket服务：再新建一个cmd终端
+
+`cd c:\workspace\s02-django-jg-prj\s02-socket-server`
+
+`python main`
+
+![image-20200327104457860](README/image-20200327104457860.png)
+
+### 页端使用
+
+step3:   在本地浏览器（任意一台联网的电脑或者手机都可以）输入： http://175.24.105.191:8080/index
+
+OK，就可以看到更新数据了。
+
+### 模型使用
+
+step4: 在本地浏览器输入：http://www.thingjs.com/guide/?m=sample
+
+（注意上述网址必须是http开头而非https开头，否则由于浏览器CPS策略影响，不能交互数据。）
+
+井盖位置
+
+![image-20200327135715442](README/image-20200327135715442.png)
+
+step5: 打开开关；
+
+![image-20200327140253899](README/image-20200327140253899.png)
 
 ## 参考文献：
 
-1. https://www.runoob.com/python/python-mysql.html
+1. 打开lesql.html
 2. https://www.runoob.com/mysql/mysql-where-clause.html
 
