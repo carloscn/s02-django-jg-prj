@@ -46,6 +46,60 @@ l **Json解析器：**生成和保存json文件。
 
 模型客户端是依托ThingJS物联网开发平台的虚拟模型可视化装置。前端模型由CampusBuilder塑造还原的校园模型，后端是基于Javascript实现的物体形体控制。通过ThingJS提供的平台可将CampusBuilder生成的模型UI与后端Javascript有机的结合起来。物体形体的控制数据通过Ajax向运行Django的服务器进行http请求，运行Django的服务器会读取数据库信息并返回数据，Javascript会根据数据控制物体的形态，以完成数据闭合流通的过程。
 
+## 使用方法关键记录
+
+### 登入服务器
+
+使用windows系统自带的远程桌面连接工具。寻找方法如图，在开始菜单输入关键字。
+
+![image-20200329093920802](README/image-20200329093920802.png)
+
+进入后输入IP指令：
+
+![image-20200329094016377](README/image-20200329094016377.png)
+
+输入用户和密码，登入界面。
+
+启动cmder软件。
+
+### 服务器端启动
+
+请参考教学视频，以下为关键步骤的记录。
+
+step1： 在服务器端启动django服务:  新建一个cmd终端
+
+`cd /d c:\workspace\s02-django-jg-prj\django-test\HelloWorld`
+
+`python manage.py runserver 0.0.0.0:8080 `
+
+![image-20200327104519032](README/image-20200327104519032.png)
+
+step2:   服务器端系统启动socket服务：再新建一个cmd终端
+
+`cd c:\workspace\s02-django-jg-prj\s02-socket-server`
+
+`python main`
+
+![image-20200327104457860](README/image-20200327104457860.png)
+
+step3:   在本地浏览器（任意一台联网的电脑或者手机都可以）输入： http://175.24.105.191:8080/index
+
+OK，就可以看到更新数据了。
+
+### 模型使用
+
+step4: 在本地浏览器输入：http://www.thingjs.com/guide/?m=sample
+
+（注意上述网址必须是http开头而非https开头，否则由于浏览器CPS策略影响，不能交互数据。）
+
+井盖位置
+
+![image-20200327153025533](README/image-20200327153025533.png)
+
+step5: 打开开关；
+
+![image-20200327140253899](README/image-20200327140253899.png)
+
 
 
 ## 服务器配置
@@ -122,6 +176,7 @@ alter user 'root'@'localhost' identified by 'root';
      PRIMARY KEY ( `number` )
   )ENGINE=InnoDB DEFAULT CHARSET=utf8;
   ```
+
 ```
   
 ![image-20200323094632601	](s02-技术记录-1/image-20200323094632601.png)
@@ -140,19 +195,31 @@ alter user 'root'@'localhost' identified by 'root';
 
 ![image-20200323095648617](s02-技术记录-1/image-20200323095648617.png)
 
+几个常用的命令记录：
+
   ```mysql
   alter table s02table add number int first;
   ```
 
   ```
-  UPDATE s02table SET number='0' WHERE runoob_id="123456";
+  UPDATE s02table SET number='0' WHERE id="123456";
   ```
 
 ALTER TABLE `s02table` DROP PRIMARY KEY ,ADD PRIMARY KEY ( `number` );
 
 alter table s02table modify number int auto_increment;
 
-truncate table s02table;
+`truncate table s02table;`
+
+## 通信协议
+
+            # BC95通过电信云接收的数据格式为
+            #  df68ff97907e  00  1111  2222  3333  00  11  00
+            # |------------||--||----||----||----||--||--||--|
+            #     (ignro)    ID  xxxx  yyyy  zzzz  zd  bj  ad
+            #    固定12位                          zd: 振动数据
+            #                                      bj: 报警数据
+            #                                      ad: 管理员权限
 
 ## COAP开发
 
@@ -205,7 +272,7 @@ truncate table s02table;
   - 0.03 PUT：更新资源
 
 - 0.04 DELETE：删除资源
-  
+
 ### 安装OpenSSL
 
   下载： http://slproweb.com/download/Win64OpenSSL_Light-1_1_1e.msi
@@ -223,7 +290,7 @@ truncate table s02table;
 ​     
 
 2. 创建测试CA证书。
-1. 创建私钥。
+3. 创建私钥。
 
 `openssl genrsa -out ca-key.pem 1024 `
 
@@ -235,76 +302,38 @@ truncate table s02table;
 
 `openssl x509 -req -in ca-req.csr -out ca-cert.pem -signkey ca-key.pem -days 3650 `
 ![点击放大](https://support.huaweicloud.com/devg-IoT/figure/zh-cn_image_0229054091.gif)
+
 3. 生成server证书。
 
-1. 创建私钥。
+4. 创建私钥。
 
 `openssl genrsa -out server.key 1024 `
 
 2. 创建证书请求。
-`openssl req -new -out server-req.csr -key server.key `
-  
+   `openssl req -new -out server-req.csr -key server.key `
+
 3. 自签署证书。
-`openssl x509 -req -in server-req.csr -out server.cert -signkey server.key -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial -days 3650 `
-![点击放大](https://support.huaweicloud.com/devg-IoT/figure/zh-cn_image_0229054353.gif)
+   `openssl x509 -req -in server-req.csr -out server.cert -signkey server.key -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial -days 3650 `
+   ![点击放大](https://support.huaweicloud.com/devg-IoT/figure/zh-cn_image_0229054353.gif)
 
 4. 生成client证书。
 
 
 1. 创建私钥。
-`openssl genrsa -out client.key 1024 `
+   `openssl genrsa -out client.key 1024 `
 2. 创建证书请求。
-`openssl req -new -out client-req.csr -key client.key `
+   `openssl req -new -out client-req.csr -key client.key `
 3. 自签署证书。
-`openssl x509 -req -in client-req.csr -out client.cert -signkey client.key -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial -days 3650 `
-![点击放大](https://support.huaweicloud.com/devg-IoT/figure/zh-cn_image_0229054093.gif)
-5. 在Demo工程中，已经配置好生成的server证书。
-python -m pip install flask -i http://pypi.douban.com/simple --trusted-host=pypi.douban.com
+   `openssl x509 -req -in client-req.csr -out client.cert -signkey client.key -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial -days 3650 `
+   ![点击放大](https://support.huaweicloud.com/devg-IoT/figure/zh-cn_image_0229054093.gif)
+4. 在Demo工程中，已经配置好生成的server证书。
+   python -m pip install flask -i http://pypi.douban.com/simple --trusted-host=pypi.douban.com
 
 python -m pip install requests -i http://pypi.douban.com/simple --trusted-host=pypi.douban.com
-
-## 使用方法关键记录
-
-请参考教学视频，以下为关键步骤的记录。
-
-step1： 在服务器端启动django服务:  新建一个cmd终端
-
-`cd /d c:\workspace\s02-django-jg-prj\django-test\HelloWorld`
-
-`python manage.py runserver 0.0.0.0:8080 `
-
-![image-20200327104519032](README/image-20200327104519032.png)
-
-step2:   服务器端系统启动socket服务：再新建一个cmd终端
-
-`cd c:\workspace\s02-django-jg-prj\s02-socket-server`
-
-`python main`
-
-![image-20200327104457860](README/image-20200327104457860.png)
-
-### 页端使用
-
-step3:   在本地浏览器（任意一台联网的电脑或者手机都可以）输入： http://175.24.105.191:8080/index
-
-OK，就可以看到更新数据了。
-
-### 模型使用
-
-step4: 在本地浏览器输入：http://www.thingjs.com/guide/?m=sample
-
-（注意上述网址必须是http开头而非https开头，否则由于浏览器CPS策略影响，不能交互数据。）
-
-井盖位置
-
-![image-20200327135715442](README/image-20200327135715442.png)
-
-step5: 打开开关；
-
-![image-20200327140253899](README/image-20200327140253899.png)
 
 ## 参考文献：
 
 1. 打开lesql.html
 2. https://www.runoob.com/mysql/mysql-where-clause.html
 
+JU8NV3tuY22YLQt

@@ -4,56 +4,6 @@
     <list default="true" id="d887c227-22ef-4be5-a66c-436f1f2b5774" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/HelloWorld/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/HelloWorld/HelloWorld/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/id_card/_config.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/id_card/css/animate.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/id_card/css/font-awesome.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/id_card/css/font-awesome.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/id_card/fonts/FontAwesome.otf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/id_card/fonts/fontawesome-webfont.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/id_card/fonts/fontawesome-webfont.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/id_card/fonts/fontawesome-webfont.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/id_card/fonts/fontawesome-webfont.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/id_card/fonts/fontawesome-webfont.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/id_card/img/ava.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/id_card/img/bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/id_card/img/weqr.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/id_card/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/id_card/mob.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/id_card/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/id_card/wechat.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/HelloWorld/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/MathJax.js.下载" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/analytics.js.下载" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/application.572ca0f0.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/application.b41f3d20.js.下载" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/carlos_head.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/font-awesome.css" beforeDir="false" afterPath="$PROJECT_DIR$/HelloWorld/static/css/font-awesome.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/lofarico.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/lunr.jp.js.下载" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/lunr.stemmer.support.js.下载" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/material-icons.css" beforeDir="false" afterPath="$PROJECT_DIR$/HelloWorld/static/css/material-icons.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/modernizr.8c900955.js.下载" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/my.css" beforeDir="false" afterPath="$PROJECT_DIR$/HelloWorld/static/css/my.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/orcid_16x16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/resume/p1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/resume/p2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/rg.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/static/application.572ca0f0.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/static/font-awesome.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/static/material-icons.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/static/my.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/tinyseg.js.下载" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/ustc.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/zhihu.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/沈阳化工大学Logo.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/index/西工大Logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/static/application.572ca0f0.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/static/font-awesome.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/static/material-icons.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/static/my.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/HelloWorld/templates/static/respond.min.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,25 +140,25 @@
       <screen x="0" y="0" width="1739" height="939" />
     </state>
     <state x="600" y="221" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1739.939/0.0.1739.939@0.0.1739.939" timestamp="1584591418883" />
-    <state width="1718" height="250" key="GridCell.Tab.0.bottom" timestamp="1585289837418">
+    <state width="1718" height="250" key="GridCell.Tab.0.bottom" timestamp="1585313783327">
       <screen x="0" y="0" width="1739" height="939" />
     </state>
-    <state width="1718" height="250" key="GridCell.Tab.0.bottom/1920.0.1739.939/0.0.1739.939@0.0.1739.939" timestamp="1585289837418" />
+    <state width="1718" height="250" key="GridCell.Tab.0.bottom/1920.0.1739.939/0.0.1739.939@0.0.1739.939" timestamp="1585313783327" />
     <state width="1718" height="249" key="GridCell.Tab.0.bottom/1920.0.1739.939/0.0.1739.939@1920.0.1739.939" timestamp="1585100651310" />
-    <state width="1718" height="250" key="GridCell.Tab.0.center" timestamp="1585289837418">
+    <state width="1718" height="250" key="GridCell.Tab.0.center" timestamp="1585313783327">
       <screen x="0" y="0" width="1739" height="939" />
     </state>
-    <state width="1718" height="250" key="GridCell.Tab.0.center/1920.0.1739.939/0.0.1739.939@0.0.1739.939" timestamp="1585289837418" />
+    <state width="1718" height="250" key="GridCell.Tab.0.center/1920.0.1739.939/0.0.1739.939@0.0.1739.939" timestamp="1585313783327" />
     <state width="1718" height="249" key="GridCell.Tab.0.center/1920.0.1739.939/0.0.1739.939@1920.0.1739.939" timestamp="1585100651309" />
-    <state width="1718" height="250" key="GridCell.Tab.0.left" timestamp="1585289837418">
+    <state width="1718" height="250" key="GridCell.Tab.0.left" timestamp="1585313783327">
       <screen x="0" y="0" width="1739" height="939" />
     </state>
-    <state width="1718" height="250" key="GridCell.Tab.0.left/1920.0.1739.939/0.0.1739.939@0.0.1739.939" timestamp="1585289837418" />
+    <state width="1718" height="250" key="GridCell.Tab.0.left/1920.0.1739.939/0.0.1739.939@0.0.1739.939" timestamp="1585313783327" />
     <state width="1718" height="249" key="GridCell.Tab.0.left/1920.0.1739.939/0.0.1739.939@1920.0.1739.939" timestamp="1585100651309" />
-    <state width="1718" height="250" key="GridCell.Tab.0.right" timestamp="1585289837418">
+    <state width="1718" height="250" key="GridCell.Tab.0.right" timestamp="1585313783327">
       <screen x="0" y="0" width="1739" height="939" />
     </state>
-    <state width="1718" height="250" key="GridCell.Tab.0.right/1920.0.1739.939/0.0.1739.939@0.0.1739.939" timestamp="1585289837418" />
+    <state width="1718" height="250" key="GridCell.Tab.0.right/1920.0.1739.939/0.0.1739.939@0.0.1739.939" timestamp="1585313783327" />
     <state width="1718" height="249" key="GridCell.Tab.0.right/1920.0.1739.939/0.0.1739.939@1920.0.1739.939" timestamp="1585100651309" />
     <state width="1718" height="308" key="GridCell.Tab.1.bottom" timestamp="1585051402921">
       <screen x="0" y="0" width="1739" height="939" />
