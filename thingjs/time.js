@@ -1,33 +1,41 @@
-
+/**
+ * 说明：创建多种几何体
+ * 教程：ThingJS教程——>对象创建——>创建物体
+ * 难度：★★☆☆☆
+ */
 //加载场景代码
-var app = new THING.App({ 
+var app = new THING.App({
     // 场景地址
     "url": "/api/scene/3540ae80b3d9a5cd41ed6979"
 });
 var is_refresh_data = 0;
+var vt = 0;
+var at = 0;
 // 详见ThingJS教程 —— 界面 —— 快捷界面库 相关内容
 // 界面组件
 var panel = new THING.widget.Panel({
     titleText: 'mpu6050三轴数据',
-    closeIcon: true, // 是否有关闭按钮 
-    dragable: true, // 是否可以拖拽 
+    closeIcon: true, // 是否有关闭按钮
+    dragable: true, // 是否可以拖拽
     retractable: true, // 是否可折叠
-    opacity: 0.9, // 透明度 
+    opacity: 0.9, // 透明度
     hasTitle: true, // 是否有标题
     zIndex: 999 // 设置层级
 });
 
-// 创建数据对象 
+// 创建数据对象
 var dataObj = {
     x_axis: '0.00000',
     y_axis: '0.00000',
     z_axis: '0.00000',
+    gps: '0.00,0.00',
     open: false,
 };
-// 界面绑定对象 
+// 界面绑定对象
 var x_axis = panel.addString(dataObj, 'x_axis').caption('x轴数据');
 var y_axis = panel.addString(dataObj, 'y_axis').caption('y轴数据');
 var z_axis = panel.addString(dataObj, 'z_axis').caption('z轴数据');
+var gps = panel.addString(dataObj, 'gps').caption('gps数据');
 var open = panel.addBoolean(dataObj, 'open').caption('启动数据模拟');
 
 open.on('change', function (ev) {
@@ -40,20 +48,20 @@ open.on('change', function (ev) {
         console.log("三轴数据跟踪关闭");
     }
 });
-// 创建Thing 
-var box = app.create({ 
-   type: 'Thing', 
+// 创建Thing
+var box = app.create({
+   type: 'Thing',
    name: '井盖_污水',
-   url: '/api/models/7ca44474756c4720b730af6e16f8159e/0/gltf/', 
-   // 模型地址 
+   url: '/api/models/7ca44474756c4720b730af6e16f8159e/0/gltf/',
+   // 模型地址
    position: [0, 0, 0],
-   // 位置 
+   // 位置
    angle: 0,
 
     width: 5,
     height: 0.1,
     position: [12, 78, 99], // 箱子坐标
-   // 旋转 
+   // 旋转
    complete: function () {
        console.log('thing created: ' + this.id);
    }
@@ -64,11 +72,12 @@ var box = app.create({
 
 var count = 0;
 var number = 0;
+
 app.on('update', function () {
     if (is_refresh_data == 1) {
         count = count + 1;
-        
-        if (count == 5) {
+
+        if (count == 60) {
             // 箱子自转
             number = number + 1;
             $.ajax({
@@ -90,7 +99,12 @@ app.on('update', function () {
                     dataObj.x_axis = data.x - 180;
                     dataObj.y_axis = data.y - 180;
                     dataObj.z_axis = data.z - 180;
-                    
+                    dataObj.gps = data.gps;
+                    at = data.at;
+                    vt = data.vt;
+                    if ( at == 1 ) {
+                        console.log('报警');
+                    }
                     box.rotateTo({
                         'angles': [data.x - 180, data.y - 180 , data.z- 180],
                         'time': 0,
@@ -127,6 +141,8 @@ function createPanel(obj) {
     panel.add(obj.x, '温度').name('x-轴角度');
     panel.add(obj.y, '温度').name('y-轴角度');
     panel.add(obj.z, '温度').name('z-轴角度');
+    panel.add(obj.gps, 'gps').name('gps数据');
+    panel.add()
 
     monitorControl.on('change', function (ev) {
         if (ev) {
