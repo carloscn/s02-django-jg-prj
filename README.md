@@ -120,9 +120,18 @@ mysqld ``--initialize --console
 
 `net start mysql`
 
-
-
 alter user 'root'@'localhost' identified by 'root';
+
+更改密码：
+
+```mysql
+mysql> use mysql
+mysql> update user set authentication_string=password('HEpan693640.') where user='root';
+mysql> flush privileges;
+mysql> quit
+```
+
+
 
 密码通过在根目录搜索err文件查找
 
@@ -142,7 +151,7 @@ alter user 'root'@'localhost' identified by 'root';
 
 * python3上安装mysql驱动：
 
-  `python -m pip install PyMySQL -i http://pypi.douban.com/simple --trusted-host=pypi.douban.com`
+  `python -m pip install PyMySQL django-csp-nonce django requests -i http://pypi.douban.com/simple --trusted-host=pypi.douban.com`
 
 * 安装安全控件：
 
