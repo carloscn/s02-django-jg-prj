@@ -86,6 +86,9 @@ def axis(request):
     x_data = database_return[3]
     y_data = database_return[4]
     z_data = database_return[5]
-    res = {"x": x_data, "y": y_data, "z":z_data }
+    vt = database_return[6]
+    gps = database_return[7]
+    at = database_return[8]
+    res = {"x": x_data, "y": y_data, "z":z_data, "gps":gps, "at":at, "vt":vt }
     print("return json:", res)
     return HttpResponse(json.dumps(res))
