@@ -30,7 +30,8 @@ var dataObj = {
     z_axis: '0.00000',
     gps: '0.00,0.00',
     open: false,
-    button: true
+    button: true,
+    text: '显示一些消息',
 };
 // 界面绑定对象 
 var x_axis = panel.addString(dataObj, 'x_axis').caption('x轴数据');
@@ -39,7 +40,7 @@ var z_axis = panel.addString(dataObj, 'z_axis').caption('z轴数据');
 var gps = panel.addString(dataObj, 'gps').caption('gps数据');
 var open = panel.addBoolean(dataObj, 'open').caption('启动数据模拟');
 var button = panel.addImageBoolean(dataObj, 'button').caption('数据回访').url('https://www.thingjs.com/static/images/example/icon.png');
-
+var text = panel.addString(dataObj, 'text').caption('数据内容');
 open.on('change', function (ev) {
     if (ev) {
         is_refresh_data = 1;
@@ -96,6 +97,10 @@ button.on('change', function (state) {
                     console.log('rotateto completed');
                 }
             });
+            dataObj.text = '  x:' + dataObj.x_axis + 
+                           'y:' + dataObj.y_axis + 
+                           'z:' + dataObj.z_axis + 
+                           'gps:' + dataObj.gps; 
             console.log(data);
             // 处理返回的数据
         },
