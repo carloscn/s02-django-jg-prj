@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Signin Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/bootstrap-3.3.7/css/bootstrap.css" rel="stylesheet">
+
+    {#    <link href=" /static/bootstrap/css/signin.css" rel="stylesheet">#}
+</head>
+
+<body>
+<script type="text/javascript">
+
+</script>
+
+<div class="container">
+
+    <form class="form-signin" method="post">
+        {% csrf_token %}
+        <div class="panel panel-default">
+            <div>
+            <h1 class="panel-heading">智能井盖云平台-设备编辑 </h1>
+            </div>
+            <table class="table">
+                <tr>
+                    <td>
+                        <label class="sr-only"></label>
+                        <div style="float: left;">
+                            <input type="button btn-lg" value="设备ID"  class="btn" disabled style='font-size:16px'/>
+                        </div>
+                        <div style="float: left;">
+                             <input type="text" name="dev_id" value="{{ edit_device_obj.dev_id }}" class="form-control" placeholder="请输入设备id" required>
+                        </div>
+                        <div style="float: left;">
+                             <input type="hidden" name="id" value="{{ edit_device_obj.id }}" class="form-control" placeholder="请输入设备id" required>
+                        </div>
+                    </td>
+                    <td>
+                        <label class="sr-only"></label>
+                        <div style="float: left;">
+                            <input type="button btn-lg" value="设备名称"  class="btn" disabled style='font-size:16px'/>
+                        </div>
+                        <div style="float: left;">
+                             <input type="text" name="name" value="{{ edit_device_obj.dev_name }}" class="form-control" placeholder="请输入设备名称" required>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label class="sr-only"></label>
+                        <div style="float: left;">
+                            <input type="button btn-lg" value="设备所在地址"  class="btn" disabled style='font-size:16px'/>
+                        </div>
+                        <div style="float: left;">
+                             <input type="text" name="address" value="{{ edit_device_obj.dev_address }}" class="form-control" placeholder="请输入地址" required>
+                        </div>
+                    </td>
+                    <td>
+                        <label class="sr-only"></label>
+                        <div style="float: left;">
+                            <input type="button btn-lg" value="设备IMEI"  class="btn" disabled style='font-size:16px'/>
+                        </div>
+                        <div style="float: left;">
+                            <input type="text" name="imei" value="{{ edit_device_obj.imei }}" class="form-control" placeholder="请输入设备imei" required>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label class="sr-only"></label>
+                        <div style="float: left;">
+                            <input type="button btn-lg" value="设备经度"  class="btn" disabled style='font-size:16px'/>
+                        </div>
+                        <div style="float: left;">
+                             <input type="text" name="longitude" value="{{ edit_device_obj.longitude }}" class="form-control" placeholder="请输入设备经度" required>
+                        </div>
+                    </td>
+                    <td>
+                        <label class="sr-only"></label>
+                        <div style="float: left;">
+                            <input type="button btn-lg" value="设备纬度"  class="btn" disabled style='font-size:16px'/>
+                        </div>
+                        <div style="float: left;">
+                            <input type="text" name="latitude" value="{{ edit_device_obj.latitude }}" class="form-control" placeholder="请输入设备纬度" required>
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+
+
+        <div class="form-group">
+            <label class="sr-only"></label>
+            <input type="hidden" name="cpuid" value="{{ edit_device_obj.cpu_id }}" class="form-control"
+                   placeholder="请输入设备CPUID"
+                   required>
+        </div>
+
+        </div>
+        <div style="float: left;">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">点击提交</button>
+        </div>
+    </form>
+
+</div> <!-- /container -->
+
+
+</body>
+</html>

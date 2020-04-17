@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用户登录</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/static/bootstrap-3.3.7/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/bootstrap-3.3.7/css/signin.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <form class="form-signin">
+        {% csrf_token %}
+        <h2 class="form-signin-heading">智能井盖云平台</h2>
+
+        <div class="form-group">
+            <label class="sr-only"></label>
+
+            <div style="float: left;">
+                <input type="button" value="用户名"  class="btn" disabled style='font-size:18px'/>
+            </div>
+	        <div style="float: right;">
+                 <input type="text" id="user" class="form-control" placeholder="请输入用户名" >
+            </div>
+	        <div style="height: 40px;">
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="sr-only"></label>
+            <div style="float: left;">
+                <input type="button" value="密码"  class="btn" disabled style='font-size:18px'>
+            </div>
+	        <div style="float: right;">
+                 <input type="password"id="pwd" class="form-control" placeholder="请输入密码">
+            </div>
+	        <div style="height: 40px">
+            </div>
+        </div>
+        <div class="form-group">
+            <div>
+                <label class="sr-only"></label>
+                <div style="float: left;">
+                <input type="hidden" value="验证码"  class="btn" disabled style='font-size:18px'>
+                </div>
+	        <div style="float: right;">
+                 <input type="hidden" id="valid_code" class="form-control" placeholder="请输入验证码">
+<!--            </div>-->
+<!--                <div style="height: 55px">-->
+<!--            </div>-->
+<!--                <img class="form-control" id="valid_code_img" src="get_validCode_img/" alt="">-->
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <div style="float: left;">
+                <button id="btn" class="btn btn-lg btn-primary btn-block btn-info" type="button">点击登录</button>
+            </div>
+	        <div style="float: right;">
+                 <span class="error"></span>
+                <a href="/app01/registeruser/" id="register" class="btn btn-lg btn-primary btn-info">点击注册</a>
+            </div>
+	        <div style="height: 40px">
+            </div>
+        </div>
+    </form>
+
+</div> <!-- /container -->
+<script src="/static/jquery.js"></script>
+<script>
+    $("#valid_code_img").click(function () {
+        //点击图片验证码刷新
+        $(this)[0].src += "?";
+    });
+    //登录验证
+    $('#btn').click(function () {
+
+        $.ajax({
+            url: '',
+            type: "post",
+            data: {
+                user: $("#user").val(),
+                pwd: $('#pwd').val(),
+                valid_code: $('#valid_code').val(),
+                csrfmiddlewaretoken:$("[name = 'csrfmiddlewaretoken']").val()
+            },
+            success: function (data) {
+                var data = JSON.parse(data)
+                if (data.user) {
+                    location.href='/app01/first/';
+                } else {
+                    $(".error").text(data.msg).css({"color": "red", "margin-left": "10px"});
+                    setTimeout(function () {
+                        $(".error").text(" ");
+                    }, 100);
+                }
+            }
+        })
+    });
+
+
+
+
+</script>
+
+</body>
+</html>
