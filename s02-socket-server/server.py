@@ -32,7 +32,7 @@ class server():
 
     def init_database(self):
         # 打开数据库连接
-        db = pymysql.connect("localhost", "root", "root", "S02DB", charset='utf8')
+        db = pymysql.connect("localhost", "root", "root", "orm", charset='utf8')
         # 使用cursor()方法获取操作游标
         cursor = db.cursor()
         # 使用execute方法执行SQL语句
@@ -49,7 +49,7 @@ class server():
 
     def write_database(self, id, time, x, y, z, vt, gps, at):
         # 打开数据库连接
-        db = pymysql.connect("localhost", "root", "root", "S02DB", charset='utf8')
+        db = pymysql.connect("localhost", "root", "root", "orm", charset='utf8')
         # 使用cursor()方法获取操作游标
         cursor = db.cursor()
 

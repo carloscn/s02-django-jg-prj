@@ -112,11 +112,37 @@ https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.19-winx64.zip
 
 解压到C盘，设定配置环境变量路径。
 
-`mysqld --install`
+在解压到的文件夹内创建：`my.ini`配置文件和一个`data`文件夹
+
+`my.ini`配置文件内容为
 
 ```
-mysqld ``--initialize --console
+[client]
+port=3306
+default-character-set=utf8
+
+[mysqld] 
+# 设置为自己MYSQL的安装目录 
+basedir=C:\mysql-8.0.19-winx64
+# 设置为MYSQL的数据目录，禁止手动创建data文件夹 
+# datadir=C:\mysql-8.0.19-winx64\data
+port=3306
+character_set_server=utf8
+#开启查询缓存
+explicit_defaults_for_timestamp=true
 ```
+
+
+
+```
+mysqld --initialize --console
+```
+
+![image-20200412115222033](C:\Users\multimicro\AppData\Roaming\Typora\typora-user-images\image-20200412115222033.png)
+
+上图红框中的为初次密码
+
+`mysqld --install`
 
 `net start mysql`
 
@@ -220,6 +246,138 @@ alter table s02table modify number int auto_increment;
 
 `truncate table s02table;`
 
+
+
+* 创建用户表 UserInfo
+
+  ```mysql
+  CREATE TABLE IF NOT EXISTS `app01_userinfo`(
+     `id` INT UNSIGNED NOT NULL auto_increment, 
+     `name` VARCHAR(100) NOT NULL,
+     `pwd` VARCHAR(40) NOT NULL,
+     PRIMARY KEY ( `id` )
+  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  ```
+
+  进入`manage.py`文件目录下，执行下面语句：[https://www.cnblogs.com/wangyue0925/p/11060303.html](https://www.cnblogs.com/wangyue0925/p/11060303.html)
+
+  ```python
+  python manage.py makemigrations sessions
+  
+  python manage.py migrate sessions
+  ```
+
+* 创建产品表 Product
+
+  如下图，提示缺少什么，就创建什么
+
+  ![image-20200412132213764](C:\Users\multimicro\AppData\Roaming\Typora\typora-user-images\image-20200412132213764.png)
+
+  ```mysql
+  CREATE TABLE IF NOT EXISTS `app01_product`(
+     `id` INT UNSIGNED NOT NULL auto_increment, 
+     `name` VARCHAR(32) NOT NULL,
+     `pro_key` VARCHAR(32) NOT NULL,
+     `pro_script` VARCHAR(64) NOT NULL,
+      PRIMARY KEY ( `id` ),
+      `userinfo_id` INT UNSIGNED DEFAULT NULL,
+      KEY `userinfo_id`(`userinfo_id`),
+      FOREIGN KEY(`userinfo_id`) REFERENCES `app01_userinfo`(`id`)
+  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  ```
+
+```
+INSERT INTO app01_product ( name, pro_key, pro_script, userinfo_id)
+                         VALUES
+                         ("BC35", "9a65fdc7224411938d3e2cd7f2f70fb3","nb-iot",1);
+```
+
+
+
+
+* 创建站点 Site
+
+  ```mysql
+  CREATE TABLE IF NOT EXISTS `app01_site`(
+     `id` INT UNSIGNED NOT NULL auto_increment, 
+     `name` VARCHAR(16) NOT NULL,
+     `site_script` VARCHAR(64) NOT NULL,
+      PRIMARY KEY ( `id` )
+  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  ```
+
+  ```mysql
+  INSERT INTO app01_site ( name, site_script)
+                           VALUES
+                           ("HuaWei-IoT", "NB-IoT Device");
+  ```
+
+  
+
+* 创建注册表 register
+
+  ```mysql
+  CREATE TABLE IF NOT EXISTS `app01_register`(
+     `id` INT UNSIGNED NOT NULL auto_increment,
+     `dev_id` VARCHAR(64) NOT NULL,
+     `dev_name` VARCHAR(32) NOT NULL,
+     `dev_address` VARCHAR(32) NOT NULL,
+     `longitude` VARCHAR(32) NOT NULL,
+     `latitude` VARCHAR(32) NOT NULL,
+     `imei` VARCHAR(32) NOT NULL,
+     `dev_id_key` VARCHAR(32) NOT NULL,
+     `create_time` TIME(6) NOT NULL,
+      PRIMARY KEY ( `id` ),
+      `pro_id` INT UNSIGNED DEFAULT NULL,
+      KEY `pro_id`(`pro_id`),
+      FOREIGN KEY(`pro_id`) REFERENCES `app01_product`(`id`),
+       `site_id` INT UNSIGNED DEFAULT NULL,
+      KEY `site_id`(`site_id`),
+      FOREIGN KEY(`site_id`) REFERENCES `app01_site`(`id`)
+  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  ```
+  
+* 创建数据表 Data
+  ```mysql
+  CREATE TABLE IF NOT EXISTS `app01_data`(
+     `id` INT UNSIGNED NOT NULL auto_increment, 
+     `dev_id` VARCHAR(64) NOT NULL,
+     `mpu6050_x` FLOAT NOT NULL,
+     `mpu6050_y` FLOAT NOT NULL,
+     `mpu6050_z` FLOAT NOT NULL,
+     `vibrate`  INT UNSIGNED NULL,
+     `alarm`  INT UNSIGNED NULL,
+     `admin`  INT UNSIGNED NULL,
+     `time` DATETIME NOT NULL,
+      PRIMARY KEY ( `id` ),
+      `device_id` INT UNSIGNED DEFAULT NULL,
+      KEY `device_id`(`device_id`),
+      FOREIGN KEY(`device_id`) REFERENCES `app01_register`(`id`)
+  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  ```
+
+
+* 创建状态表 State
+
+  ```mysql
+  CREATE TABLE IF NOT EXISTS `app01_state`(
+     `id` INT UNSIGNED NOT NULL auto_increment, 
+     `state` VARCHAR(16) NOT NULL,
+     `time` Time(6) NOT NULL,
+      PRIMARY KEY ( `id` ),
+      `devid_id` INT UNSIGNED DEFAULT NULL,
+      KEY `devid_id`(`devid_id`),
+      FOREIGN KEY(`devid_id`) REFERENCES `app01_register`(`id`)
+  )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  ```
+```
+
+```
+
+  
+
+
+
 ## 通信协议
 
             # BC95通过电信云接收的数据格式为
@@ -244,13 +402,13 @@ alter table s02table modify number int auto_increment;
 
 在mongodb的根目录创建mongod.cfg文件，文件内部写入：
 
-  ```
+```
   systemLog:
       destination: file
       path: c:\data\log\mongod.log
   storage:
       dbPath: c:\data\db
-  ```
+```
 
 在终端运行安装mongo：
 
@@ -346,3 +504,7 @@ python -m pip install requests -i http://pypi.douban.com/simple --trusted-host=p
 2. https://www.runoob.com/mysql/mysql-where-clause.html
 
 JU8NV3tuY22YLQt
+
+  ```
+
+  ```

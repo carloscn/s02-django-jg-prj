@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>查看页面</title>
+    <link href="/static/bootstrap-3.3.7/css/bootstrap.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="container">
+    <input type="btn btn-lg btn-primary btn-block" value="智能井盖云平台-设备信息" disabled style='font-size:50px'/>
+    <table class="table table-bordered">
+        <thead>
+        <tr class="active">
+            <th>设备id</th>
+            <th>设备名称</th>
+            <th>设备地址</th>
+            <th>经度</th>
+            <th>纬度</th>
+            <th>IMEI</th>
+<!--            <th>CPUID</th>-->
+<!--            <th>设备KEY</th>-->
+            <th>时间</th>
+<!--            <th>站点名称</th>-->
+<!--            <th>产品</th>-->
+            <th>删除操作</th>
+            <th>编辑操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for device in device_list %}
+            <tr>
+                <td>{{ device.dev_id }}</td>
+                <td>{{ device.dev_name }}</td>
+                <td>{{ device.dev_address }}</td>
+                <td>{{ device.longitude }}</td>
+                <td>{{ device.latitude }}</td>
+                <td>{{ device.imei }}</td>
+<!--                <td>{{ device.cpu_id }}</td>-->
+<!--                <td>{{ device.dev_id_key }}</td>-->
+                <td>{{ device.create_time }}</td>
+<!--                <td>{{ device.site.name }}</td>-->
+<!--                <td>{{ device.pro.name }}</td>-->
+                <td><a href="/app01/check/{{ device.pk }}/delete" class="btn btn-danger">删除</a></td>
+                <td><a href="/app01/check/{{ device.pk }}/change" class="btn btn-info">编辑</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div style="float: left;">
+        <button class="btn btn-lg btn-primary" type="button" id="btn">返回首页</button>
+    </div>
+</div>
+<script src="/static/jquery.js"></script>
+<script src="/static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+         $('#btn').click(function () {
+            $(location).attr('href','/app01/first/')
+        })
+    })
+
+</script>
+</body>
+</html>
+

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>添加产品</title>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="">
+</head>
+<body>
+<div class="container">
+    <form action="" method="post">
+        {% csrf_token %}
+        <h2 class="form-signin-heading">添加产品</h2>
+        <div class="form-group">
+            <label class="sr-only"></label>
+            <input type="text" name="name" class="form-control" placeholder="请输入产品名称" required>
+        </div>
+        <div class="form-group">
+            <label class="sr-only"></label>
+            <input type="text" name="script" class="form-control" placeholder="请输入产品描述" required>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">点击注册</button>
+        <button class="btn btn-lg btn-primary btn-block" type="button" id="btn">返回首页</button>
+    </form>
+</div>
+<script src="/static/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+         $('#btn').click(function () {
+            $(location).attr('href','/app01/first/')
+        })
+    })
+
+</script>
+</body>
+</html>

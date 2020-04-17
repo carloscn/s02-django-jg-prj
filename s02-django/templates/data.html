@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>查看数据</title>
+    <link href="/static/bootstrap-3.3.7/css/bootstrap.css" rel="stylesheet">
+
+</head>
+<body>
+<div class="container">
+
+<!--    <div style="float: left;">-->
+    <div style="float: left;">
+        <button class="btn btn-lg btn-default" type="button" id="btn">返回首页</button>
+    </div>
+    <div style="float: left;">
+        <button class="btn btn-lg btn-default" type="button" id="btn2">请求数据</button>
+    </div>
+
+<!--    </div>-->
+    <div class="panel-info">
+    </div>
+    <div style="text-align: center;" >
+        <table border = "2" width="100%">
+            <caption style='font-size:30px'>智能井盖云平台-设备数据</caption>
+<!--            <thead>-->
+                <tr >
+                    <th align="right">设备ID</th>
+                    <th align="center">mpu6050_x</th>
+                    <th align="center">mpu6050_y</th>
+                    <th align="center">mpu6050_z</th>
+                    <th align="center">vibrate</th>
+                    <th align="center">alarm</th>
+                    <th align="center">admin</th>
+                    <th align="center">时间</th>
+                </tr>
+<!--            </thead>-->
+            <tbody>
+            {% if data_list %}
+                {% for data in data_list %}
+                    <tr>
+                        <td>{{ data.device.dev_id }}</td>
+                        <td>{{ data.mpu6050_x }}</td>
+                        <td>{{ data.mpu6050_y }}</td>
+                        <td>{{ data.mpu6050_z }}</td>
+                        <td>{{ data.vibrate }}</td>
+                        <td>{{ data.alarm }}</td>
+                        <td>{{ data.admin }}</td>
+                        <td>{{ data.time }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            </tbody>
+         </table>
+     </div>
+
+</div>
+<script src="/static/jquery.js"></script>
+<script src="/static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+         $('#btn').click(function () {
+            $(location).attr('href','/app01/first/')
+        })
+    })
+    $(document).ready(function () {
+         $('#btn2').click(function () {
+            location.href='/app01/request_data/';
+        })
+    })
+</script>
+
+<script type="text/javascript">
+	var counter = 0;
+	var int=self.setInterval("clock()",1000);
+	$('#counter').val(1)
+	function clock()
+	{
+	    counter = parseInt($('#counter').val());
+        location.href='/app01/data/';
+	}
+</script>
+
+</body>
+</html>
+

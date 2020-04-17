@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>用户注册</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/static/bootstrap-3.3.7/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/bootstrap-3.3.7/css/signin.css" rel="stylesheet">
+    <style>
+        #avatar_img {
+            margin-left: 20px;
+        }
+
+        #avatar {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <form class="form-signin" id="form">
+        <h2 class="form-signin-heading">注册页面</h2>
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.auto_id }}">{{ field.label }}</label>
+                {{ field }} <span class="error   pull-right"></span>
+            </div>
+        {% endfor %}
+        <div class="form-group">
+            <label for="avatar">
+                头像
+                <img src="/static/img/default.jpg" width="60" height="60" id="avatar_img">
+            </label>
+            <input type="file" id="avatar">
+        </div>
+        <div class="form-group">
+            <button id="reg_btn" class="btn btn-lg btn-primary btn-block" type="button">点击注册</button>
+
+        </div>
+    </form>
+</div> <!-- /container -->
+<script src="/static/jquery.js"></script>
+<script>
+    //头像预览
+    $('#avatar').change(function () {
+        //获取用户选中的文件对象
+        var file_obj = $(this)[0].files[0];
+        //获取文件对象的路径
+        var reader = new FileReader();
+        reader.readAsDataURL(file_obj);
+        //修改img的双src属性,src = 文件对象的路径
+        reader.onload = function () {
+            $('#avatar_img').attr('src', reader.result)
+        };
+    });
+
+    //基于ajax提交数据
+    $('#reg_btn').click(function () {
+        var formdata = new FormData();
+        var requset_data = $("#form").serializeArray();
+        $.each(requset_data, function (index, data) {
+            formdata.append(data.name, data.value)
+        });
+        formdata.append('avatar', $('#avatar')[0].files[0]);
+        $.ajax({
+            url: '',
+            type: 'post',
+            contentType: false,
+            processData: false,
+            data: formdata,
+            success: function (data) {
+                console.log(data);
+                if (data.user) {
+                    location.href = '/app01/login/'
+                } else { //注册失败
+                    //清空错误信息
+                    $('span.error').html('');
+                    $('.form-group').removeClass('has-error');
+                    //展示此次提交的错误信息
+                    $.each(data.msg, function (field, error_list) {
+                        if (field == '__all__') {
+                            $('#id_re_pwd').next().html(error_list[0])
+                        }
+                        $('#id_' + field).next().html(error_list[0]);
+                        $('#id_' + field).parent().addClass('has-error');
+                    })
+                }
+            }
+
+        })
+    })
+</script>
+
+</body>
+</html>
