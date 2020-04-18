@@ -165,7 +165,7 @@ app.on('update', function () {
                     dataObj.gps = data.gps;
                     at = data.at;
                     vt = data.vt;
-                    if (at == 1) {
+                    if (at == 1 || at == "1") {
                         console.log('报警');
                         app.background = 0xff8844;
                     } else {
