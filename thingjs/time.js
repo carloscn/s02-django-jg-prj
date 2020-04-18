@@ -66,7 +66,7 @@ button.on('change', function (state) {
         'headers': {
             "token": '31415926'// 请求头中带上了token数据
         },
-        'url': "http://175.24.105.191:8080/axis", //Ajax请求服务的地址
+        'url': "http://175.24.105.191:8080/app01/axis/", //Ajax请求服务的地址
         'type': "GET", //请求方式 "POST" 或 "GET"，默认为 "GET"
         'dataType': "json",    //服务返回的数据类型，推荐使用标准JSON数据格式
         //发送到服务器的数据
@@ -78,9 +78,9 @@ button.on('change', function (state) {
                 console.log('数据库没有数据了...');
                 return;
             }
-            dataObj.x_axis = data.x - 180;
-            dataObj.y_axis = data.y - 180;
-            dataObj.z_axis = data.z - 180;
+            dataObj.x_axis = data.x;
+            dataObj.y_axis = data.y;
+            dataObj.z_axis = data.z;
             dataObj.gps = data.gps;
             at = data.at;
             vt = data.vt;
@@ -147,7 +147,7 @@ app.on('update', function () {
                 'headers': {
                     "token": '31415926'// 请求头中带上了token数据
                 },
-                'url': "http://175.24.105.191:8080/axis", //Ajax请求服务的地址
+                'url': "http://175.24.105.191:8080/app01/axis/", //Ajax请求服务的地址
                 'type': "GET", //请求方式 "POST" 或 "GET"，默认为 "GET"
                 'dataType': "json",    //服务返回的数据类型，推荐使用标准JSON数据格式
                 //发送到服务器的数据
@@ -159,9 +159,9 @@ app.on('update', function () {
                         console.log('数据库没有数据了...');
                         return;
                     }
-                    dataObj.x_axis = data.x - 180;
-                    dataObj.y_axis = data.y - 180;
-                    dataObj.z_axis = data.z - 180;
+                    dataObj.x_axis = data.x;
+                    dataObj.y_axis = data.y;
+                    dataObj.z_axis = data.z;
                     dataObj.gps = data.gps;
                     at = data.at;
                     vt = data.vt;
